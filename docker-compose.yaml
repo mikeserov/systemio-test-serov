@@ -1,0 +1,22 @@
+version: '3.9'
+
+services:
+  php-fpm:
+    container_name: systemio-test-serov-php-fpm
+    user: '1000:1000'
+
+    build:
+      context: ./
+      dockerfile: docker/php-fpm/Dockerfile
+
+    volumes:
+      - type: bind
+        source: ./
+        target: /var/www/html/
+
+    command: /bin/sh -c "composer install
+      && php-fpm"
+
+    env_file: .env.test
+
+
