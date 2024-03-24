@@ -20,3 +20,14 @@ services:
     env_file: .env
 
 
+  postgres:
+    container_name: systemio-test-serov-postgres
+    image: postgres:16-alpine3.19
+
+    environment:
+      POSTGRES_DB: systemio-test-serov
+      POSTGRES_PASSWORD: postgres
+
+    ports:
+      - target: 5432
+        published: $PG_CONTAINER_PUBLISHED_PORT
