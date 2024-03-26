@@ -20,13 +20,16 @@ services:
       - "host.docker.internal:host-gateway"
     environment:
       PHP_IDE_CONFIG: serverName=systemio-test-serov
+    ports:
+      - target: 80
+        published: $PHP_SERVER_PUBLISHED_PORT
 
     command: /bin/sh -c "composer install
       && ./docker/php-fpm/wait-for-postgres.sh postgres postgres   
       && ./bin/console doctrine:database:create --if-not-exists --no-interaction
       && ./bin/console doctrine:schema:update --force --no-interaction
       && ./bin/console doctrine:migrations:migrate --no-interaction
-      && php-fpm"
+      && php -S 0.0.0.0:80 -t /var/www/html/public"
 
     env_file: .env
 
@@ -41,19 +44,3 @@ services:
     ports:
       - target: 5432
         published: $PG_CONTAINER_PUBLISHED_PORT
-
-  nginx:
-    container_name: systemio-test-serov-nginx
-    depends_on:
-      - php-fpm
-
-    build:
-      context: ./
-      dockerfile: docker/nginx/Dockerfile
-
-    environment:
-      PHP_FPM_HOST: php-fpm
-
-    ports:
-      - target: 80
-        published: $NGINX_CONTAINER_PUBLISHED_PORT
