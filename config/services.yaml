@@ -5,5 +5,8 @@ services:
         autowire: true
         autoconfigure: true
 
+    App\Controller\:
+        resource: '../src/Controller/'
+
     App\Service\:
         resource: '../src/Service/'
