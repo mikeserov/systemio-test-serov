@@ -13,10 +13,10 @@ class PaypalPaymentProcessorAdapter implements PaymentProcessorAdapterInterface
     ) {
     }
 
-    public function processPayment(float $priceEuro): void
+    public function processPayment(float $majorUnitPrice): void
     {
-        $priceCents = (int) round($priceEuro * 100, 0, \PHP_ROUND_HALF_EVEN);
+        $minorUnitPrice = (int) round($majorUnitPrice * 100, 0, \PHP_ROUND_HALF_EVEN);
 
-        $this->systemeioPaypalPaymentProcessor->pay(price: $priceCents);
+        $this->systemeioPaypalPaymentProcessor->pay(price: $minorUnitPrice);
     }
 }

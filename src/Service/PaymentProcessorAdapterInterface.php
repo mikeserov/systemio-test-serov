@@ -6,5 +6,5 @@ namespace App\Service;
 
 interface PaymentProcessorAdapterInterface
 {
-    public function processPayment(float $priceEuro): void;
+    public function processPayment(float $majorUnitPrice): void;
 }

@@ -14,9 +14,9 @@ class StripePaymentProcessorAdapter implements PaymentProcessorAdapterInterface
     ) {
     }
 
-    public function processPayment(float $priceEuro): void
+    public function processPayment(float $majorUnitPrice): void
     {
-        $isSuccessPayment = $this->systemeioStripePaymentProcessor->processPayment(price: $priceEuro);
+        $isSuccessPayment = $this->systemeioStripePaymentProcessor->processPayment(price: $majorUnitPrice);
 
         if (!$isSuccessPayment) {
             throw new Exception();
