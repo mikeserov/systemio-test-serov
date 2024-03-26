@@ -10,7 +10,7 @@ use App\Enum\PercentCouponEnum;
 use App\Exception\PurchaseFailException;
 use Exception;
 
-readonly class PurchaseService
+class PurchaseService
 {
     public function __construct(
         private PaymentProcessorAdapterResolver $paymentProcessorAdapterResolver,

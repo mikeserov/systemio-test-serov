@@ -9,7 +9,7 @@ use App\Enum\FixAmountCouponEnum;
 use App\Enum\PercentCouponEnum;
 use DomainException;
 
-readonly class CalculatePriceService
+class CalculatePriceService
 {
     public function calculate(
         Product $product,

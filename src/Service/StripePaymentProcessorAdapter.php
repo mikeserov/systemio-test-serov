@@ -7,7 +7,7 @@ namespace App\Service;
 use Exception;
 use Systemeio\TestForCandidates\PaymentProcessor as Systemeio;
 
-readonly class StripePaymentProcessorAdapter implements PaymentProcessorAdapterInterface
+class StripePaymentProcessorAdapter implements PaymentProcessorAdapterInterface
 {
     public function __construct(
         private Systemeio\StripePaymentProcessor $systemeioStripePaymentProcessor,

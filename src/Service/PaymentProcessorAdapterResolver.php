@@ -6,7 +6,7 @@ namespace App\Service;
 
 use App\Enum\PaymentProcessorEnum;
 
-readonly class PaymentProcessorAdapterResolver
+class PaymentProcessorAdapterResolver
 {
     public function __construct(
         private PaypalPaymentProcessorAdapter $paypalPaymentProcessorAdapter,

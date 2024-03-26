@@ -23,3 +23,7 @@ curl --location 'http://127.0.0.1:8080/purchase' \
     "paymentProcessor": "paypal"
 }'
 ```
+запустить тесты:
+```
+docker-compose exec php-fpm bin/phpunit
+```

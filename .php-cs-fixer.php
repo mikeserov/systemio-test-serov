@@ -9,6 +9,7 @@ $finder = PhpCsFixer\Finder::create()
     ->in('./config/')
     ->in('./migrations/')
     ->in('./src/')
+    ->in('./tests/')
     ->append(['.php-cs-fixer.php'])
 ;
 

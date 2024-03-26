@@ -6,7 +6,7 @@ namespace App\Service;
 
 use Systemeio\TestForCandidates\PaymentProcessor as Systemeio;
 
-readonly class PaypalPaymentProcessorAdapter implements PaymentProcessorAdapterInterface
+class PaypalPaymentProcessorAdapter implements PaymentProcessorAdapterInterface
 {
     public function __construct(
         private Systemeio\PaypalPaymentProcessor $systemeioPaypalPaymentProcessor,
