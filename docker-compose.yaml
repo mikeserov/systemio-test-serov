@@ -3,6 +3,8 @@ version: '3.9'
 services:
   php-fpm:
     container_name: systemio-test-serov-php-fpm
+    depends_on:
+      - postgres
     user: '1000:1000'
 
     build:
@@ -20,6 +22,10 @@ services:
       PHP_IDE_CONFIG: serverName=systemio-test-serov
 
     command: /bin/sh -c "composer install
+      && ./docker/php-fpm/wait-for-postgres.sh postgres postgres   
+      && ./bin/console doctrine:database:create --if-not-exists --no-interaction
+      && ./bin/console doctrine:schema:update --force --no-interaction
+      && ./bin/console doctrine:migrations:migrate --no-interaction
       && php-fpm"
 
     env_file: .env
@@ -38,6 +44,8 @@ services:
 
   nginx:
     container_name: systemio-test-serov-nginx
+    depends_on:
+      - php-fpm
 
     build:
       context: ./
