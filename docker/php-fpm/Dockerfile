@@ -4,10 +4,12 @@ WORKDIR /var/www/html
 
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/bin/
 RUN install-php-extensions \
-    pdo_pgsql
+    pdo_pgsql \
+    xdebug
 RUN rm /usr/bin/install-php-extensions
 
 RUN cp $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini
+COPY ./docker/php-fpm/xdebug.ini $PHP_INI_DIR/conf.d/xdebug.ini
 
 COPY ../.. /var/www/html
 
