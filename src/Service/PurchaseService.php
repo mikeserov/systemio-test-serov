@@ -6,6 +6,7 @@ namespace App\Service;
 
 use App\Entity\Product;
 use App\Enum\FixAmountCouponEnum;
+use App\Enum\PaymentProcessorEnum;
 use App\Enum\PercentCouponEnum;
 use App\Exception\PurchaseFailException;
 use Exception;
@@ -22,7 +23,7 @@ class PurchaseService
         Product $product,
         string $taxNumber,
         FixAmountCouponEnum|PercentCouponEnum|null $couponEnum,
-        $paymentProcessorAdapterEnum,
+        PaymentProcessorEnum $paymentProcessorAdapterEnum,
     ): void {
         $price = $this->calculatePriceService->calculate(
             product: $product,
