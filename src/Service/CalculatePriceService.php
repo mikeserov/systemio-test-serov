@@ -46,7 +46,7 @@ readonly class CalculatePriceService
             PercentCouponEnum::PERCENT_30 => 0.30,
         };
 
-        return ($price + $taxSum) * (1 - $discountPercent);
+        return ($price + $taxSum) * $discountPercent;
     }
 
     private function calculateTaxSum(string $taxNumber, int $price): float
