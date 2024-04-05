@@ -17,15 +17,15 @@ class CalculatePriceService
         FixAmountCouponEnum|PercentCouponEnum|null $couponEnum,
     ): float {
         $price = $product->price;
-        $taxSum = $this->calculateTaxSum(taxNumber: $taxNumber, price: $price);
-        $discountSum = $this->calculateDiscountSum(price: $price, taxSum: $taxSum, couponEnum: $couponEnum);
+        $discountSum = $this->calculateDiscountSum(price: $price, couponEnum: $couponEnum);
+        $priceWithDiscount = max(0, $price - $discountSum);
+        $taxSum = $this->calculateTaxSum(taxNumber: $taxNumber, priceWithDiscount: $priceWithDiscount);
 
-        return max(0, $price + $taxSum - $discountSum);
+        return $priceWithDiscount + $taxSum;
     }
 
     private function calculateDiscountSum(
         int $price,
-        float $taxSum,
         FixAmountCouponEnum|PercentCouponEnum|null $couponEnum,
     ): float {
         if (null === $couponEnum) {
@@ -46,10 +46,10 @@ class CalculatePriceService
             PercentCouponEnum::PERCENT_30 => 0.30,
         };
 
-        return ($price + $taxSum) * $discountPercent;
+        return $price * $discountPercent;
     }
 
-    private function calculateTaxSum(string $taxNumber, int $price): float
+    private function calculateTaxSum(string $taxNumber, float $priceWithDiscount): float
     {
         $country = substr($taxNumber, 0, 2);
         $taxPercent = match ($country) {
@@ -60,6 +60,6 @@ class CalculatePriceService
             default => throw new DomainException('Invalid country.'),
         };
 
-        return $price * $taxPercent;
+        return $priceWithDiscount * $taxPercent;
     }
 }
